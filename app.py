@@ -1,7 +1,14 @@
 import streamlit as st
 import joblib
+import requests  # Library to make HTTP requests
 
-# Load the trained model
+# Load the trained model from GitHub
+model_url = 'https://raw.githubusercontent.com/your_username/your_repository/main/loan_approval_model.joblib'
+response = requests.get(model_url)
+with open('loan_approval_model.joblib', 'wb') as f:
+    f.write(response.content)
+
+# Load the model
 model = joblib.load('loan_approval_model.joblib')
 
 def check_loan_approval(income, loan_amount):
